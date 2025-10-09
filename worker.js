@@ -20,7 +20,7 @@ export default {
         )}, Origin: ${request.headers.get("Origin")}`
       );
 
-      if (pathname === "/") {
+      if (pathname === "/gen") {
         // 返回 index.html 文件内容
         return env.ASSETS.fetch(request);
       }

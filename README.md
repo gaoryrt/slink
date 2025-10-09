@@ -1,7 +1,7 @@
 This repo is part of a short-link-service based on [ccbikai/hink](https://github.com/ccbikai/hink).
 
 ## slink 生成流程
-1. 访问 https://a.c-o.cc/ 填入内容和密钥
+1. 访问 https://a.c-o.cc/gen 填入内容和密钥
 2. 内容和密钥传到 worker，对称加密后获得 commit content，调用 GitHub API 进行 commit
 3. commit 成功得到 commit hash 返回给前端
 4. 前端展示前六位
