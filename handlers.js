@@ -65,7 +65,7 @@ export async function handleCreate(request, env) {
       return json({ error: "commit failed" }, 500);
     }
 
-    const short = commit.sha.slice(0, 7);
+    const short = commit.sha.slice(0, 4);
     console.log(
       `[handleCreate] 创建成功 - short: ${short}, commitHash: ${commit.sha}`
     );
@@ -143,8 +143,10 @@ export async function redirectByPatch(hash, key, env) {
         return Response.redirect(decryptedContent);
       }
 
-      // Otherwise, return the decrypted content as JSON
-      return json({ content: decryptedContent });
+      // Otherwise, return the decrypted content as plain text
+      return new Response(decryptedContent, {
+        headers: { "Content-Type": "text/plain" },
+      });
     } catch (error) {
       // If decryption fails, return error
       return json({ error: "Decryption failed" }, 400);
