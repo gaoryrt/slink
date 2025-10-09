@@ -119,8 +119,7 @@ export async function redirectByPatch(hash, key, env) {
     const res = await fetch(patchUrl, {
       cf: { cacheEverything: true, cacheTtlByStatus: { "200-299": 86400 } },
     });
-    if (!res.ok)
-      return Response.redirect(env.DEFAULT_URL || "https://coreco.re");
+    if (!res.ok) return Response.redirect(env.DEFAULT_URL);
 
     const patch = await res.text();
     // First try original simple mode: Subject: [PATCH] <url>
@@ -131,8 +130,7 @@ export async function redirectByPatch(hash, key, env) {
 
     // Otherwise, decrypt the content with the provided key
     const payload = extractPayloadLineFromPatch(patch);
-    if (!payload)
-      return Response.redirect(env.DEFAULT_URL || "https://coreco.re");
+    if (!payload) return Response.redirect(env.DEFAULT_URL);
 
     try {
       const encryptedData = JSON.parse(payload);
@@ -152,6 +150,6 @@ export async function redirectByPatch(hash, key, env) {
       return json({ error: "Decryption failed" }, 400);
     }
   } catch (e) {
-    return Response.redirect(env.DEFAULT_URL || "https://coreco.re");
+    return Response.redirect(env.DEFAULT_URL);
   }
 }

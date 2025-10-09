@@ -40,15 +40,14 @@ export default {
       if (pathParts.length === 2) {
         const [hash, key] = pathParts;
         if (!HEX_RE.test(hash) || !key)
-          return Response.redirect(env.DEFAULT_URL || "https://coreco.re");
+          return Response.redirect(env.DEFAULT_URL);
         return redirectByPatch(hash, key, env);
       }
 
       // Legacy hash route: /:hash (for backward compatibility)
       if (pathname.length > 1 && pathname.indexOf("/", 1) === -1) {
         const hash = pathname.slice(1);
-        if (!HEX_RE.test(hash))
-          return Response.redirect(env.DEFAULT_URL || "https://coreco.re");
+        if (!HEX_RE.test(hash)) return Response.redirect(env.DEFAULT_URL);
         // For legacy URLs without key, return a simple page asking for key
         const html = `<!doctype html>
 <html>
