@@ -1,0 +1,27 @@
+{
+  // Cloudflare Worker config for slink
+  "name": "slink",
+  "main": "worker.js",
+  "compatibility_date": "2024-11-01",
+  "workers_dev": true,
+  "assets": {
+    "directory": "./",
+    "binding": "ASSETS",
+    "include": ["index.html"]
+  },
+  "vars": {
+    // Public repo URL used for fetching commit patches, e.g. https://github.com/<owner>/<repo>
+    "GIT_REPO": "https://github.com/gaoryrt/slink",
+    // Where to redirect when invalid request or missing data
+    "DEFAULT_URL": "https://coreco.re",
+    // GitHub repository configuration (used by /api/create)
+    "REPO_OWNER": "gaoryrt",
+    "REPO_NAME": "slink",
+    "REPO_BRANCH": "main",
+    // Optional subdirectory to store slinks, leave empty string for repo root
+    "REPO_DIR": "slinks"
+  },
+  "observability": { "enabled": true },
+  // Set your token with: wrangler secret put GITHUB_TOKEN
+  "placement": { "mode": "smart" }
+}
