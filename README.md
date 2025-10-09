@@ -1,23 +1,5 @@
 This repo is part of a short-link-service based on [ccbikai/hink](https://github.com/ccbikai/hink).
 
-## 部署设置
-
-### 1. 设置 GitHub Token
-在部署之前，你需要设置 GitHub token 作为 Cloudflare Worker 的密钥：
-
-```bash
-wrangler secret put GITHUB_TOKEN
-```
-
-然后输入你的 GitHub Personal Access Token。这个 token 需要以下权限：
-- `repo` (完整仓库访问权限)
-- `workflow` (如果需要 GitHub Actions 权限)
-
-### 2. 部署
-```bash
-wrangler deploy
-```
-
 ## slink 生成流程
 1. 访问 https://a.c-o.cc/ 填入内容和密钥
 2. 内容和密钥传到 worker，对称加密后获得 commit content，调用 GitHub API 进行 commit
