@@ -22,10 +22,15 @@ gaoryrt/slink 可以借用 cf workers 计算与 github 储存，实现短链服�
 
 ## How can I deploy my own slink?
 folk, clone, install, build
+
 修改 `wrangler.jsonc` 中 vars 中的对应内容
+
 在 [GitHub personal-access-tokens](https://github.com/settings/personal-access-tokens) 上 `generate new token`
+
 名字随便填
+
 Repository access 选择 `Only select repositories`, 选择刚刚 fork 的 slink
+
 Permissions 选择
 ```
 Read access to metadata
