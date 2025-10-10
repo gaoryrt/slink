@@ -241,7 +241,7 @@ document.getElementById('createForm').addEventListener('submit', async function(
   }
   
   submitBtn.disabled = true;
-  submitBtn.textContent = 'Creating...';
+  submitBtn.textContent = '...';
   
   try {
     const response = await fetch('/api/create', {
@@ -256,7 +256,7 @@ document.getElementById('createForm').addEventListener('submit', async function(
     
     if (response.ok) {
       const shortUrl = window.location.origin + '/' + data.short;
-      showResult(`<div class="short-link" onclick="copyLink('${shortUrl}', this)">${shortUrl}</div><br><a href="https://github.com/gaoryrt/slink/commit/${data.commitHash}">https://github.com/gaoryrt/slink/commit/${data.commitHash}</a>`, 'success');
+      showResult(`<a class="short-link" href="${shortUrl}" target="_blank">${shortUrl}</a><br><a href="https://github.com/gaoryrt/slink/commit/${data.commitHash}">https://github.com/gaoryrt/slink/commit/${data.commitHash}</a>`, 'success');
       document.getElementById('createForm').reset();
       document.getElementById('key').value = generateRandomKey();
     } else {
@@ -270,17 +270,6 @@ document.getElementById('createForm').addEventListener('submit', async function(
   }
 });
 
-async function copyLink(url, element) {
-  const success = await copyToClipboard(url);
-  if (success) {
-    element.textContent = 'Copied!';
-    element.classList.add('copied');
-    setTimeout(() => {
-      element.textContent = url;
-      element.classList.remove('copied');
-    }, 2000);
-  }
-}
 
 function showResult(message, type) {
   const result = document.getElementById('result');
