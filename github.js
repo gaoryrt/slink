@@ -111,7 +111,6 @@ export async function commitEmptyToGitHub(env, payload) {
 
     return { sha: commitSha };
   } catch (error) {
-    console.error("[commitEmptyToGitHub] GitHub提交过程中发生错误:", error);
     return null;
   }
 }

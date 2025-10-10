@@ -53,7 +53,6 @@ export async function handleCreate(request, env) {
     const short = commit.sha.slice(0, 4);
     return json({ short, commitHash: commit.sha });
   } catch (e) {
-    console.error("[handleCreate] 处理过程中发生错误:", e);
     return json({ error: "bad request" }, 400);
   }
 }

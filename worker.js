@@ -43,14 +43,13 @@ export default {
         // For legacy URLs without key, return a simple page asking for key
         return json(
           {
-            error: `an URL without key detected, try again like /${hash}/{yourkey}`,
+            error: `you should use /${hash}/{yourkey}`,
           },
           400
         );
       }
       return json({ error: "not found" }, 404);
     } catch (error) {
-      console.error("[Worker] 未处理的错误:", error);
       return json({ error: "internal server error" }, 500);
     }
   },
