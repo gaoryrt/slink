@@ -4,8 +4,12 @@
 // - GET  /api/resolve?hash=<hash>                  -> { content }
 // - GET  /:hash                                     -> redirects (if content is URL) or shows text
 
-import { HEX_RE } from "./utils.js";
-import { handleCreate, handleResolve, redirectByPatch } from "./handlers.js";
+import { HEX_RE } from "./back/utils.js";
+import {
+  handleCreate,
+  handleResolve,
+  redirectByPatch,
+} from "./back/handlers.js";
 
 export default {
   async fetch(request, env, ctx) {
