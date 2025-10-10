@@ -49,49 +49,17 @@ export default {
         const hash = pathname.slice(1);
         if (!HEX_RE.test(hash)) return Response.redirect(env.DEFAULT_URL);
         // For legacy URLs without key, return a simple page asking for key
-        const html = `<!doctype html>
-<html>
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>slink ${hash}</title>
-<style>body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;max-width:720px;margin:40px auto;padding:0 16px}input,button{font:inherit;padding:8px;margin:4px}button{background:#007bff;color:white;border:none;border-radius:4px;cursor:pointer}</style>
-</head>
-<body>
-<h1>slink</h1>
-<p>hash: <code>${hash}</code></p>
-<p>请使用新的URL格式: <code>/${hash}/你的密钥</code></p>
-<p>或者输入密钥:</p>
-<label>Key <input id="key" type="password" autofocus /></label>
-<button onclick="go()">Go</button>
-<script>
-function go() {
-  const key = document.getElementById('key').value;
-  if (key) {
-    window.location.href = '/${hash}/' + encodeURIComponent(key);
-  }
-}
-</script>
-</body></html>`;
-        return new Response(html, {
-          headers: { "content-type": "text/html; charset=utf-8" },
-        });
+        return json(
+          {
+            error: `an URL without key detected, try again like /${hash}/{yourkey}`,
+          },
+          400
+        );
       }
-
-      return new Response("Not found", { status: 404 });
+      return json({ error: "not found" }, 404);
     } catch (error) {
       console.error("[Worker] 未处理的错误:", error);
-      return new Response(
-        JSON.stringify({
-          error: "Internal server error",
-          message: error.message,
-          stack: error.stack,
-        }),
-        {
-          status: 500,
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+      return json({ error: "internal server error" }, 500);
     }
   },
 };

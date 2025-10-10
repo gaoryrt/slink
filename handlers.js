@@ -22,10 +22,10 @@ export async function handleCreate(request, env) {
   const host = request.headers.get("Host");
   console.log(`[handleCreate] CORS检查 - Origin: ${origin}, Host: ${host}`);
 
-  // if (origin && !isSameOrigin(origin, host)) {
-  //   console.log("[handleCreate] CORS验证失败");
-  //   return json({ error: "CORS: Origin not allowed" }, 403);
-  // }
+  if (origin && !isSameOrigin(origin, host)) {
+    console.log("[handleCreate] CORS验证失败");
+    return json({ error: "CORS: Origin not allowed" }, 403);
+  }
 
   try {
     console.log("[handleCreate] 开始解析请求体");
@@ -147,7 +147,7 @@ export async function redirectByPatch(hash, key, env) {
       });
     } catch (error) {
       // If decryption fails, return error
-      return json({ error: "Decryption failed" }, 400);
+      return json({ error: "not found" }, 404);
     }
   } catch (e) {
     return Response.redirect(env.DEFAULT_URL);
