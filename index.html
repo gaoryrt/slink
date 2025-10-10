@@ -45,6 +45,7 @@ input, textarea {
   transition: all 0.2s ease;
   background: #fafafa;
   border: none;
+  font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
 }
 
 input:focus, textarea:focus {
@@ -54,7 +55,6 @@ input:focus, textarea:focus {
 
 textarea {
   resize: true;
-  font-family: inherit;
 }
 
 .key-container {
@@ -72,13 +72,16 @@ button {
 
 .generate-btn {
   position: absolute;
+  height: 100%;
+  width: 52px;
   right: 0;
-  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
   font-size: 20px;
   color: #666;
   transition: all 0.2s ease;
-  line-height: 1;
   white-space: nowrap;
 }
 input {
@@ -151,16 +154,15 @@ input {
 }
 
 @media (max-width: 480px) {
-  .container {
-    padding: 24px;
-    margin: 0;
-  }
-  
-  .key-container {
+  #createForm {
     flex-direction: column;
   }
-  
-  .generate-btn {
+  input,
+  textarea {
+    height: 52px;
+  }
+
+  .key-container {
     width: 100%;
   }
 }
@@ -170,7 +172,7 @@ input {
 <div class="container">
 
   <form id="createForm">
-    <textarea id="content" placeholder="Enter your content or URL..." required ></textarea>
+    <textarea id="content" placeholder="content or URL" required ></textarea>
   
     <div class="key-container">
       <input type="text" id="key" placeholder="key" required />
@@ -197,7 +199,9 @@ document.addEventListener('DOMContentLoaded', function() {
   const keyInput = document.getElementById('key');
 });
 
-document.getElementById('generateBtn').addEventListener('click', function() {
+document.getElementById('generateBtn').addEventListener('click', function(e) {
+  e.preventDefault()
+  e.stopPropagation()
   const keyInput = document.getElementById('key');
   keyInput.value = generateRandomKey();
   keyInput.focus();
