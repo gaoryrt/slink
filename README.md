@@ -14,6 +14,6 @@ This repo is inspired by [ccbikai/hink](https://github.com/ccbikai/hink).
 - commit 成功得到 commitHash 返回给前端
 
 ### 访问
-- 访问 https://c-o.cc/{commitHash}/{key}
+- 访问 https://{domain}/{commitHash}/{key}
 - worker 校验合法后，fetch `${GIT_REPO}/commit/${commitHash}.patch` 获得加密后的 commit content
 - 使用 key 解密后，如果是链接则 redirect，否则展示内容

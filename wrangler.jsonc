@@ -9,6 +9,8 @@
     "binding": "ASSETS"
   },
   "vars": {
+    // Length of the hash used to identify the commit
+    "HASH_LEN": 5,
     // Public repo URL used for fetching commit patches, e.g. https://github.com/<owner>/<repo>
     "GIT_REPO": "https://github.com/gaoryrt/slink",
     // GitHub repository configuration (used by /api/create)

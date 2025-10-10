@@ -51,7 +51,7 @@ document
         showResult(
           `
         <div class="short-link">${shortUrl}</div>
-        <div class="short-link">${data.gitRepo}/commit/${data.commitHash}</div>
+        <div class="short-link">${data.commitHash}</div>
       `,
           "success"
         );
