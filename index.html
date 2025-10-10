@@ -256,7 +256,7 @@ document.getElementById('createForm').addEventListener('submit', async function(
     
     if (response.ok) {
       const shortUrl = window.location.origin + '/' + data.short;
-      showResult(`Link created successfully!<br><div class="short-link" onclick="copyLink('${shortUrl}', this)">${shortUrl}</div><br><small>Commit: ${data.commitHash}</small>`, 'success');
+      showResult(`<div class="short-link" onclick="copyLink('${shortUrl}', this)">${shortUrl}</div><br><a href="https://github.com/gaoryrt/slink/commit/${data.commitHash}">https://github.com/gaoryrt/slink/commit/${data.commitHash}</a>`, 'success');
       document.getElementById('createForm').reset();
       document.getElementById('key').value = generateRandomKey();
     } else {
