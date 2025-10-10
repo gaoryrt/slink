@@ -133,10 +133,12 @@ input {
   display: inline-block;
   background: white;
   padding: 12px 16px;
-  margin-top: 12px;
   cursor: pointer;
   transition: all 0.2s ease;
   user-select: all;
+}
+.short-link + .short-link {
+  margin-top: 8px;
 }
 
 .short-link:hover {
@@ -251,7 +253,11 @@ document.getElementById('createForm').addEventListener('submit', async function(
     
     if (response.ok) {
       const shortUrl = `${window.location.origin}/${data.short}/${key}`
-      showResult(`<a class="short-link" href="${shortUrl}" target="_blank">${shortUrl}</a><br><a class="short-link" href="https://github.com/gaoryrt/slink/commit/${data.commitHash}">https://github.com/gaoryrt/slink/commit/${data.commitHash.slice(0,8)}</a>`, 'success');
+      showResult(`
+        <a class="short-link" href="${shortUrl}" target="_blank">${shortUrl}</a>
+        <br>
+        <div class="short-link">https://github.com/gaoryrt/slink/commit/${data.commitHash.slice(0,8)}</div>
+      `, 'success');
       document.getElementById('createForm').reset();
       document.getElementById('key').value = generateRandomKey();
     } else {
