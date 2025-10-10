@@ -32,15 +32,18 @@ folk, clone, install, build
 Repository access 选择 `Only select repositories`, 选择刚刚 fork 的 slink
 
 Permissions 选择
+
 ```
 Read access to metadata
 Read and Write access to code and commit statuses
 ```
+
 然后生成并复制这个 token
 
 ```bash
 wrangler secret put GITHUB_TOKEN
 ```
+
 填入刚刚复制的 token
 
 ```bash
