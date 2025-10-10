@@ -4,7 +4,7 @@
 // - GET  /api/resolve?hash=<hash>                  -> { content }
 // - GET  /:hash                                     -> redirects (if content is URL) or shows text
 
-import { HEX_RE } from "./back/utils.js";
+import { HEX_RE, json } from "./back/utils.js";
 import {
   handleCreate,
   handleResolve,
