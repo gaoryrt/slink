@@ -5,11 +5,11 @@ gaoryrt/slink 白嫖 cf workers 计算与 github 储存，实现短链服务。
 - 友好的前端
 - 无数据库，且隐藏长短链
 - 每个短链都会由本人 commit（！）
+- 部署者有能力在 workers 中看到所有请求链接
 
 [c-o.cc](https://c-o.cc) 是 slink 的第一个实现
 
 **在 c-o.cc 上生成短链会占用我的 cf workers 额度，且不保证持久性，请不要用于生产环境或滥用。**
-**而且我可以在 workers 中看到请求链接**
 
 ## How this works?
 ### 生成
