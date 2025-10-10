@@ -246,8 +246,8 @@ document.getElementById('createForm').addEventListener('submit', async function(
     if (response.ok) {
       const shortUrl = `${window.location.origin}/${data.short}/${key}`
       showResult(`
-        <a class="short-link" href="${shortUrl}" target="_blank">${shortUrl}</a>
-        <div class="short-link">https://github.com/gaoryrt/slink/commit/${data.commitHash}</div>
+        <div class="short-link">${shortUrl}</div>
+        <div class="short-link">${data.gitRepo}/commit/${data.commitHash}</div>
       `, 'success');
       document.getElementById('createForm').reset();
       document.getElementById('key').value = '';

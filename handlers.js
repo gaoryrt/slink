@@ -51,7 +51,7 @@ export async function handleCreate(request, env) {
     }
 
     const short = commit.sha.slice(0, 4);
-    return json({ short, commitHash: commit.sha });
+    return json({ short, commitHash: commit.sha, gitRepo: env.GIT_REPO });
   } catch (e) {
     return json({ error: "bad request" }, 400);
   }
