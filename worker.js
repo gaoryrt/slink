@@ -13,20 +13,12 @@ export default {
       const url = new URL(request.url);
       const { pathname, searchParams } = url;
 
-      console.log(`[Worker] 收到请求 - ${request.method} ${pathname}`);
-      console.log(
-        `[Worker] 请求头 - User-Agent: ${request.headers.get(
-          "User-Agent"
-        )}, Origin: ${request.headers.get("Origin")}`
-      );
-
       if (pathname === "/") {
         // 返回 index.html 文件内容
         return env.ASSETS.fetch(request);
       }
 
       if (pathname.startsWith("/api/create") && request.method === "POST") {
-        console.log("[Worker] 路由到 /api/create 处理器");
         return handleCreate(request, env);
       }
 

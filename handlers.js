@@ -15,34 +15,23 @@ import { commitEmptyToGitHub } from "./github.js";
  * @returns {Promise<Response>} 响应对象
  */
 export async function handleCreate(request, env) {
-  console.log("[handleCreate] 开始处理创建请求");
-
   // 检查CORS - 只允许本域请求
   const origin = request.headers.get("Origin");
   const host = request.headers.get("Host");
-  console.log(`[handleCreate] CORS检查 - Origin: ${origin}, Host: ${host}`);
 
   if (origin && !isSameOrigin(origin, host)) {
-    console.log("[handleCreate] CORS验证失败");
     return json({ error: "CORS: Origin not allowed" }, 403);
   }
 
   try {
-    console.log("[handleCreate] 开始解析请求体");
     const body = await request.json();
     const content = String(body.content || "");
     const key = String(body.key || "");
 
-    console.log(
-      `[handleCreate] 请求参数 - content长度: ${content.length}, key长度: ${key.length}`
-    );
-
     if (!content || !key) {
-      console.log("[handleCreate] 缺少必要参数");
       return json({ error: "missing content or key" }, 400);
     }
 
-    console.log("[handleCreate] 开始加密内容");
     // Encrypt content with key
     const { cipherTextBase64, ivBase64, saltBase64, algo } =
       await encryptWithPassword(content, key);
@@ -53,22 +42,15 @@ export async function handleCreate(request, env) {
       iv: ivBase64,
       c: cipherTextBase64,
     });
-    console.log(`[handleCreate] 加密完成 - payload长度: ${payload.length}`);
 
-    console.log("[handleCreate] 开始提交到GitHub");
     // Commit to GitHub repository (empty commit with content in subject)
     const commit = await commitEmptyToGitHub(env, payload);
-    console.log(`[handleCreate] GitHub提交结果:`, commit);
 
     if (!commit?.sha) {
-      console.log("[handleCreate] GitHub提交失败 - 没有返回SHA");
       return json({ error: "commit failed" }, 500);
     }
 
     const short = commit.sha.slice(0, 4);
-    console.log(
-      `[handleCreate] 创建成功 - short: ${short}, commitHash: ${commit.sha}`
-    );
     return json({ short, commitHash: commit.sha });
   } catch (e) {
     console.error("[handleCreate] 处理过程中发生错误:", e);
