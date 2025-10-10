@@ -32,23 +32,17 @@ export default {
       if (pathParts.length === 2) {
         const [hash, key] = pathParts;
         if (!HEX_RE.test(hash) || !key)
-          return Response.redirect(env.DEFAULT_URL);
+          return json({ error: `invalid hash or key` }, 400);
         return redirectByPatch(hash, key, env);
       }
 
       // Legacy hash route: /:hash (for backward compatibility)
       if (pathname.length > 1 && pathname.indexOf("/", 1) === -1) {
         const hash = pathname.slice(1);
-        if (!HEX_RE.test(hash)) return Response.redirect(env.DEFAULT_URL);
+        if (!HEX_RE.test(hash)) return json({ error: `invalid hash` }, 400);
         // For legacy URLs without key, return a simple page asking for key
-        return json(
-          {
-            error: `you should use /${hash}/{yourkey}`,
-          },
-          400
-        );
       }
-      return json({ error: "not found" }, 404);
+      return json({ error: `you should use /${hash}/{yourkey}` }, 400);
     } catch (error) {
       return json({ error: "internal server error" }, 500);
     }

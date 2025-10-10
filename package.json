@@ -1,0 +1,13 @@
+{
+  "scripts": {
+    "dev": "npx vite dev",
+    "build": "npx vite build",
+    "wrangler:dev": "wrangler dev",
+    "wrangler:deploy": "wrangler deploy"
+  },
+  "type": "module",
+  "main": "index.js",
+  "devDependencies": {
+    "vite": "^7.1.9"
+  }
+}

@@ -100,7 +100,7 @@ export async function redirectByPatch(hash, key, env) {
     const res = await fetch(patchUrl, {
       cf: { cacheEverything: true, cacheTtlByStatus: { "200-299": 86400 } },
     });
-    if (!res.ok) return Response.redirect(env.DEFAULT_URL);
+    if (!res.ok) return json({ error: "not found" }, 404);
 
     const patch = await res.text();
     // First try original simple mode: Subject: [PATCH] <url>
@@ -111,7 +111,7 @@ export async function redirectByPatch(hash, key, env) {
 
     // Otherwise, decrypt the content with the provided key
     const payload = extractPayloadLineFromPatch(patch);
-    if (!payload) return Response.redirect(env.DEFAULT_URL);
+    if (!payload) return json({ error: "no payload" }, 404);
 
     try {
       const encryptedData = JSON.parse(payload);
@@ -131,6 +131,6 @@ export async function redirectByPatch(hash, key, env) {
       return json({ error: "not found" }, 404);
     }
   } catch (e) {
-    return Response.redirect(env.DEFAULT_URL);
+    return json({ error: e.message }, 500);
   }
 }
