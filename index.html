@@ -3,102 +3,226 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>slink - Create Short Link</title>
+<title>slink</title>
 <style>
-body {
-  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  max-width: 720px;
-  margin: 40px auto;
-  padding: 0 16px;
-  line-height: 1.6;
-}
-h1 {
-  color: #333;
-  margin-bottom: 30px;
-}
-.form-group {
-  margin-bottom: 20px;
-}
-label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: 600;
-  color: #555;
-}
-input, textarea, button {
-  font: inherit;
-  width: 100%;
-  padding: 12px;
-  border: 2px solid #ddd;
-  border-radius: 6px;
+* {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
+
+body {
+  font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+  background: white;
+  color: #333;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+
+.container {
+  padding: 40px;
+  width: 100%;
+  max-width: 680px;
+}
+
+#createForm {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+#content {
+  flex-grow: 1;
+}
+
+input, textarea {
+  height: 47px;
+  width: 100%;
+  padding: 16px;
+  transition: all 0.2s ease;
+  background: #fafafa;
+  border: none;
+}
+
+input:focus, textarea:focus {
+  outline: none;
+  background: #f0f0f0;
+}
+
 textarea {
-  height: 150px;
-  resize: vertical;
+  resize: true;
+  font-family: inherit;
+}
+
+.key-container {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 120px;
 }
 button {
-  background: #007bff;
-  color: white;
-  border: none;
+  border: 0;
+  outline: 0;
+  background-color: transparent;
+}
+
+.generate-btn {
+  position: absolute;
+  right: 0;
+  padding: 16px;
   cursor: pointer;
-  font-weight: 600;
-  transition: background-color 0.2s;
+  font-size: 20px;
+  color: #666;
+  transition: all 0.2s ease;
+  line-height: 1;
+  white-space: nowrap;
 }
-button:hover {
-  background: #0056b3;
+input {
+  padding-right: 44px;
 }
-button:disabled {
+
+.submit-btn {
+  flex-shrink: 0;
+  height: 45px;
+  width: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #007AFF;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.submit-btn:hover:not(:disabled) {
+  background: #0056CC;
+  transform: translateY(-1px);
+}
+
+.submit-btn:disabled {
   background: #ccc;
   cursor: not-allowed;
+  transform: none;
 }
-#result {
-  margin-top: 20px;
-  padding: 15px;
-  border-radius: 6px;
+
+.result {
+  margin-top: 24px;
+  padding: 20px;
   display: none;
+  animation: fadeIn 0.3s ease;
 }
+
 .success {
-  background: #d4edda;
-  border: 1px solid #c3e6cb;
-  color: #155724;
+  background: #f0f9ff;
+  color: #0369a1;
 }
+
 .error {
-  background: #f8d7da;
-  border: 1px solid #f5c6cb;
-  color: #721c24;
+  background: #fef2f2;
+  color: #dc2626;
 }
+
 .short-link {
-  font-family: monospace;
-  background: #f8f9fa;
-  padding: 8px 12px;
-  border-radius: 4px;
   display: inline-block;
-  margin-top: 10px;
+  background: white;
+  padding: 12px 16px;
+  margin-top: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: all;
+}
+
+.short-link:hover {
+  background: #f8f8f8;
+}
+
+.copied {
+  background: #dcfce7 !important;
+  color: #166534 !important;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 24px;
+    margin: 0;
+  }
+  
+  .key-container {
+    flex-direction: column;
+  }
+  
+  .generate-btn {
+    width: 100%;
+  }
 }
 </style>
 </head>
 <body>
-<h1>🔗 slink - 创建短链接</h1>
-<p>输入你的内容和密钥来创建一个加密的短链接。</p>
+<div class="container">
 
-<form id="createForm">
-  <div class="form-group">
-    <label for="content">内容 (Content):</label>
-    <textarea id="content" placeholder="输入你想要分享的内容，可以是文本或URL..." required></textarea>
-  </div>
+  <form id="createForm">
+    <textarea id="content" placeholder="Enter your content or URL..." required ></textarea>
   
-  <div class="form-group">
-    <label for="key">密钥 (Key):</label>
-    <input type="password" id="key" placeholder="输入一个密钥来加密你的内容..." required />
-  </div>
-  
-  <button type="submit" id="submitBtn">创建短链接</button>
-</form>
+    <div class="key-container">
+      <input type="text" id="key" placeholder="key" required />
+      <button type="button" class="generate-btn" id="generateBtn">⚄</button>
+    </div>
+    
+    <button type="submit" class="submit-btn" id="submitBtn">→</button>
+  </form>
 
-<div id="result"></div>
+  <div id="result" class="result"></div>
+</div>
 
 <script>
+function generateRandomKey() {
+  const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+  let result = '';
+  for (let i = 0; i < 2; i++) {
+    result += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return result;
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  const keyInput = document.getElementById('key');
+});
+
+document.getElementById('generateBtn').addEventListener('click', function() {
+  const keyInput = document.getElementById('key');
+  keyInput.value = generateRandomKey();
+  keyInput.focus();
+});
+
+async function copyToClipboard(text) {
+  try {
+    await navigator.clipboard.writeText(text);
+    return true;
+  } catch (err) {
+    const textArea = document.createElement('textarea');
+    textArea.value = text;
+    document.body.appendChild(textArea);
+    textArea.select();
+    try {
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
+      return true;
+    } catch (err) {
+      document.body.removeChild(textArea);
+      return false;
+    }
+  }
+}
+
 document.getElementById('createForm').addEventListener('submit', async function(e) {
   e.preventDefault();
   
@@ -108,12 +232,12 @@ document.getElementById('createForm').addEventListener('submit', async function(
   const result = document.getElementById('result');
   
   if (!content || !key) {
-    showResult('请填写所有字段', 'error');
+    showResult('Please fill in all fields', 'error');
     return;
   }
   
   submitBtn.disabled = true;
-  submitBtn.textContent = '创建中...';
+  submitBtn.textContent = 'Creating...';
   
   try {
     const response = await fetch('/api/create', {
@@ -128,23 +252,36 @@ document.getElementById('createForm').addEventListener('submit', async function(
     
     if (response.ok) {
       const shortUrl = window.location.origin + '/' + data.short;
-      showResult(`短链接创建成功！<br><div class="short-link">${shortUrl}</div><br>提交哈希: ${data.commitHash}`, 'success');
+      showResult(`Link created successfully!<br><div class="short-link" onclick="copyLink('${shortUrl}', this)">${shortUrl}</div><br><small>Commit: ${data.commitHash}</small>`, 'success');
       document.getElementById('createForm').reset();
+      document.getElementById('key').value = generateRandomKey();
     } else {
-      showResult(`创建失败: ${data.error}`, 'error');
+      showResult(`Failed to create link: ${data.error}`, 'error');
     }
   } catch (error) {
-    showResult(`网络错误: ${error.message}`, 'error');
+    showResult(`Network error: ${error.message}`, 'error');
   } finally {
     submitBtn.disabled = false;
-    submitBtn.textContent = '创建短链接';
+    submitBtn.textContent = '→';
   }
 });
+
+async function copyLink(url, element) {
+  const success = await copyToClipboard(url);
+  if (success) {
+    element.textContent = 'Copied!';
+    element.classList.add('copied');
+    setTimeout(() => {
+      element.textContent = url;
+      element.classList.remove('copied');
+    }, 2000);
+  }
+}
 
 function showResult(message, type) {
   const result = document.getElementById('result');
   result.innerHTML = message;
-  result.className = type;
+  result.className = `result ${type}`;
   result.style.display = 'block';
   result.scrollIntoView({ behavior: 'smooth' });
 }
