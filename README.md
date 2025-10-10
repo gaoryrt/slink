@@ -1,7 +1,7 @@
 This repo is inspired by [ccbikai/hink](https://github.com/ccbikai/hink).
 
 ## What is this?
-gaoryrt/slink 可以借用 cf workers 计算与 github 储存，实现短链服务。
+gaoryrt/slink 白嫖 cf workers 计算与 github 储存，实现短链服务。
 - 友好的前端
 - 无数据库，且隐藏长短链
 - 每个短链都会由本人 commit（！）
