@@ -9,6 +9,7 @@ gaoryrt/slink 白嫖 cf workers 计算与 github 储存，实现短链服务。
 [c-o.cc](https://c-o.cc) 是 slink 的第一个实现
 
 **在 c-o.cc 上生成短链会占用我的 cf workers 额度，且不保证持久性，请不要用于生产环境或滥用。**
+**而且我可以在 workers 中看到请求链接**
 
 ## How this works?
 ### 生成
