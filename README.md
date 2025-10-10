@@ -46,9 +46,9 @@ Read and Write access to code and commit statuses
 wrangler secret put GITHUB_TOKEN
 ```
 
-填入刚刚复制的 token
+填入刚刚复制的 token, 然后部署：
 
 ```bash
 wrangler deploy
 ```
-部署完成后，即可看到 cf 分配的域名，即为你的 slink 域名
+成功后即可看到 cf 分配的域名，即为你的 slink 域名
