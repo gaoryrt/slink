@@ -21,19 +21,25 @@ gaoryrt/slink 可以借用 cf workers 计算与 github 储存，实现短链服�
 - 使用 key 解密后，如果是链接则 redirect，否则展示内容
 
 ## How can I deploy my own slink?
-```bash
-git clone https://github.com/gaoryrt/slink.git
-cd slink
-npm install
-npm run build
-```
+folk, clone, install, build
 修改 `wrangler.jsonc` 中 vars 中的对应内容
-```bash
-wrangler deploy
+在 [GitHub personal-access-tokens](https://github.com/settings/personal-access-tokens) 上 `generate new token`
+名字随便填
+Repository access 选择 `Only select repositories`, 选择刚刚 fork 的 slink
+Permissions 选择
 ```
-在 [GitHub personal-access-tokens](https://github.com/settings/personal-access-tokens) 上 `generate new token`, Repository access 选择 `Only select repositories`, 选择 `{yourname}/slink`
-permissions 选择 `publ
+Read access to metadata
+Read and Write access to code and commit statuses
+```
+然后生成并复制这个 token
+
 ```bash
 wrangler secret put GITHUB_TOKEN
 ```
+填入刚刚复制的 token
+
+```bash
+wrangler deploy
+```
+
 部署完成后，访问 `https://{domain}` 即可看到前端
