@@ -1,15 +1,15 @@
 This repo is inspired by [ccbikai/hink](https://github.com/ccbikai/hink).
 
-# What is this?
-slink 基于 cf workers 计算，github 储存，实现短链服务。
-- 拥有生成前端
-- 隐藏长短链
-- 如果短链的背后不是合法链接，则不会302而是展示内容。
+## What is this?
+gaoryrt/slink 可以借用 cf workers 计算与 github 储存，实现短链服务。
+- 友好的前端
+- 无数据库，且隐藏长短链
+- 每个短链都会由本人 commit（！）
 
-[c-o.cc](https://c-o.cc) 是 slink 的一个实现。
+[c-o.cc](https://c-o.cc) 是 slink 的第一个实现，**在 c-o.cc 上生成短链会占用我的 cf workers 额度，且不保证持久性，请不要用于生产环境或滥用。**
 
-## How it works
-### 生成流程
+## How this works
+### 生成
 - 前端填入内容和密钥，点击生成
 - 内容和密钥传到 worker，对称加密后生成 commit content
 - 调用 GitHub API 进行 commit
@@ -27,7 +27,13 @@ cd slink
 npm install
 npm run build
 ```
-修改 `wrangler.jsonc`
+修改 `wrangler.jsonc` 中 vars 中的对应内容
 ```bash
 wrangler deploy
 ```
+在 [GitHub personal-access-tokens](https://github.com/settings/personal-access-tokens) 上 `generate new token`, Repository access 选择 `Only select repositories`, 选择 `{yourname}/slink`
+permissions 选择 `publ
+```bash
+wrangler secret put GITHUB_TOKEN
+```
+部署完成后，访问 `https://{domain}` 即可看到前端
