@@ -6,9 +6,11 @@ gaoryrt/slink 可以借用 cf workers 计算与 github 储存，实现短链服�
 - 无数据库，且隐藏长短链
 - 每个短链都会由本人 commit（！）
 
-[c-o.cc](https://c-o.cc) 是 slink 的第一个实现，**在 c-o.cc 上生成短链会占用我的 cf workers 额度，且不保证持久性，请不要用于生产环境或滥用。**
+[c-o.cc](https://c-o.cc) 是 slink 的第一个实现
 
-## How this works
+**在 c-o.cc 上生成短链会占用我的 cf workers 额度，且不保证持久性，请不要用于生产环境或滥用。**
+
+## How this works?
 ### 生成
 - 前端填入内容和密钥，点击生成
 - 内容和密钥传到 worker，对称加密后生成 commit content
