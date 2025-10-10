@@ -41,5 +41,4 @@ wrangler secret put GITHUB_TOKEN
 ```bash
 wrangler deploy
 ```
-
-部署完成后，访问 `https://{domain}` 即可看到前端
+部署完成后，即可看到 cf 分配的域名，即为你的 slink 域名
