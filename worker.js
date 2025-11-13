@@ -31,10 +31,12 @@ export default {
         return handleResolve(hash, env, request);
       }
 
-      // Hash route: /:hash/:key
+      // Hash route: /:hash/:key (key may contain slashes)
       const pathParts = pathname.slice(1).split("/");
-      if (pathParts.length === 2) {
-        const [hash, key] = pathParts;
+      if (pathParts.length >= 2) {
+        const hash = pathParts[0];
+        // Join all parts after hash as the key (in case key contains slashes)
+        const key = pathParts.slice(1).join("/");
         if (!HEX_RE.test(hash) || !key)
           return json({ error: `invalid hash or key` }, 400);
         return redirectByPatch(hash, key, env);

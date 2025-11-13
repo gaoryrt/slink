@@ -124,7 +124,7 @@ export async function redirectByPatch(hash, key, env) {
 
       // Otherwise, return the decrypted content as plain text
       return new Response(decryptedContent, {
-        headers: { "Content-Type": "text/plain" },
+        headers: { "Content-Type": "text/plain; charset=utf-8" },
       });
     } catch (error) {
       // If decryption fails, return error
