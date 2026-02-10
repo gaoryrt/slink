@@ -18,7 +18,11 @@
     "REPO_NAME": "slink",
     "REPO_BRANCH": "main"
   },
-  "observability": { "enabled": true },
+  "observability": {
+    "enabled": true
+  },
   // Set your token with: wrangler secret put GITHUB_TOKEN
-  "placement": { "mode": "smart" }
+  "placement": {
+    "mode": "smart"
+  }
 }
